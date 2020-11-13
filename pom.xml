@@ -17,8 +17,14 @@
 	<properties>
 		<java.version>15</java.version>
 	</properties>
-
 	<dependencies>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>client</artifactId>
+			<scope>system</scope>
+			<version>1.0</version>
+			<systemPath>${basedir}/lib/swagger-java-client-1.0.0.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
