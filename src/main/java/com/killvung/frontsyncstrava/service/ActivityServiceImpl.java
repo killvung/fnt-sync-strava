@@ -9,18 +9,17 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class StravaSyncActivitiesServiceImpl implements StravaSyncActivitiesService {
+public class ActivityServiceImpl implements ActivityService {
 	private final ActivityRepository activityRepository;
 
 	@Autowired
-	public StravaSyncActivitiesServiceImpl(ActivityRepository activityRepository) {
+	public ActivityServiceImpl(ActivityRepository activityRepository) {
 		this.activityRepository = activityRepository;
 	}
 
 	@Override
 	public List<ActivityDto> fetchActivities() {
-		List<Activity> activities = activityRepository.findAll();
-		System.out.println(activities.get(0).getDistance());
+		// TODO: Call Strava API endpoint to fetch activities
 		return null;
 	}
 }

@@ -4,6 +4,6 @@ import com.killvung.frontsyncstrava.dto.model.ActivityDto;
 
 import java.util.List;
 
-public interface StravaSyncActivitiesService {
+public interface ActivityService {
 	List<ActivityDto> fetchActivities();
 }
