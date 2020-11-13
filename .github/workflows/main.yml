@@ -21,7 +21,7 @@ jobs:
       with:
         java-version: 15
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -P prod clean install
       env: # Or as an environment variable
         MONGO_URI: ${{ secrets.MONGO_URI }}
     - name: Run Spring Boot application
