@@ -5,9 +5,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ dev ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -29,4 +29,4 @@ jobs:
     - name: Let's wait for the application to be initialized
       run: while ! lsof -Pi :8080 -sTCP:LISTEN -t > /dev/null; do    sleep 5; done
     - name: Call Spring boot application
-      run: curl localhost:8080/greeting
+      run: curl -X POST localhost:8080/api/v1/sync/activities
