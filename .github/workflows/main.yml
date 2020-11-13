@@ -25,7 +25,7 @@ jobs:
       env: # Or as an environment variable
         MONGO_URI: ${{ secrets.MONGO_URI }}
     - name: Run Spring Boot application
-      run:  ./mvnw spring-boot:run &
+      run:  ./mvnw -P prod spring-boot:run &
       env: # Or as an environment variable
         MONGO_URI: ${{ secrets.MONGO_URI }}
     - name: Let's wait for the application to be initialized
