@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/sync")
 public class SyncActivities {
 
+	private final StravaSyncActivitiesService stravaSyncActivitiesService;
+
 	@Autowired
-	private StravaSyncActivitiesService stravaSyncActivitiesService;
+	public SyncActivities(StravaSyncActivitiesService stravaSyncActivitiesService) {
+		this.stravaSyncActivitiesService = stravaSyncActivitiesService;
+	}
 
 	@PostMapping("/activities")
 	public void syncActivities(){

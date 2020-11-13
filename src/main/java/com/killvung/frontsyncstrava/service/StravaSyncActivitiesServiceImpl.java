@@ -10,8 +10,12 @@ import java.util.List;
 
 @Component
 public class StravaSyncActivitiesServiceImpl implements StravaSyncActivitiesService {
+	private final ActivityRepository activityRepository;
+
 	@Autowired
-	private ActivityRepository activityRepository;
+	public StravaSyncActivitiesServiceImpl(ActivityRepository activityRepository) {
+		this.activityRepository = activityRepository;
+	}
 
 	@Override
 	public List<ActivityDto> fetchActivities() {
