@@ -35,10 +35,12 @@ public class ActivityServiceImpl implements ActivityService {
 	public List<ActivityDto> fetchActivities() {
 		// TODO: Move this to elsewhere
 		ApiClient apiClient = new ApiClient();
-		// TODO: Generate a new access token
 //		apiClient.setAccessToken("");
 		ActivitiesApi api = new ActivitiesApi(apiClient);
 		try {
+			// TODO: Follow examples to refactor mapping to mapper
+			// https://github.com/khandelwal-arpit/springboot-starterkit/blob/master/src/main/java/com/starterkit/springboot/brs/service/BusReservationServiceImpl.java#L349
+			// https://github.com/khandelwal-arpit/springboot-starterkit/blob/master/src/main/java/com/starterkit/springboot/brs/dto/mapper/TicketMapper.java
 			Call call = api.getLoggedInAthleteActivitiesCall(null, null, null, null, null, null);
 			Type localVarReturnType = (new TypeToken<JsonArray>() {}).getType();
 			ApiResponse<JsonArray> a = api.getApiClient().execute(call, localVarReturnType);
