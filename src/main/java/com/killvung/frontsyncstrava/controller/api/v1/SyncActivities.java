@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/sync")
@@ -21,7 +23,8 @@ public class SyncActivities {
 	}
 
 	@PostMapping("/activities")
-	public void syncActivities(){
+	public List<ActivityDto> syncActivities(){
 		List<ActivityDto> activities = activityService.fetchActivities();
+		return activities.stream().map(activityService::saveActivity).collect(Collectors.toList());
 	}
 }

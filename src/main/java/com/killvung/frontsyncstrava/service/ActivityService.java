@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ActivityService {
 	List<ActivityDto> fetchActivities();
+	ActivityDto saveActivity(ActivityDto activity);
+	ActivityDto updateActivity(ActivityDto activity);
 }
