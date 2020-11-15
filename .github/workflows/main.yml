@@ -24,10 +24,12 @@ jobs:
       run: mvn -P prod clean install
       env: # Or as an environment variable
         MONGO_URI: ${{ secrets.MONGO_URI }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     - name: Run Spring Boot application
       run:  ./mvnw -P prod spring-boot:run &
       env: # Or as an environment variable
         MONGO_URI: ${{ secrets.MONGO_URI }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     - name: Let's wait for the application to be initialized
       run: while ! lsof -Pi :8080 -sTCP:LISTEN -t > /dev/null; do    sleep 5; done
     - name: Health check
