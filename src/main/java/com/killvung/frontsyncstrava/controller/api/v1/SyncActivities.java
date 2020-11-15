@@ -23,8 +23,8 @@ public class SyncActivities {
 
 	@PostMapping("/activities")
 	public Response syncActivities(){
-		List<ActivityDto> activities = activityService.fetchActivities();
-		String message = activities.size() + " activities have been synced";
+		List<ActivityDto> activityDtos = activityService.saveActivities(activityService.fetchActivities());
+		String message = activityDtos.size() + " activities have been synced";
 		return Response.ok().setPayload(message);
 	}
 }

@@ -1,6 +1,5 @@
 package com.killvung.frontsyncstrava.service;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.killvung.frontsyncstrava.dto.model.ActivityDto;
@@ -9,7 +8,6 @@ import com.killvung.frontsyncstrava.exception.ApplicationException;
 import com.killvung.frontsyncstrava.model.Activity;
 import com.killvung.frontsyncstrava.repository.ActivityRepository;
 import com.squareup.okhttp.Call;
-import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiResponse;
 import io.swagger.client.api.ActivitiesApi;
@@ -44,58 +42,28 @@ public class ActivityServiceImpl implements ActivityService {
 		}
 	}
 
-	private Activity getActivity(Long id){
-		return activityRepository.findById(id);
-	}
-
 	@Override
 	@Transactional
-	public ActivityDto saveActivity(ActivityDto activityDto) {
-		// For now, no need to perform any update regarding to fetched activity
-		if(getActivity(activityDto.getId()) != null){
-			return updateActivity(activityDto);
-		}
-		activityRepository.save(
+	public List<ActivityDto> saveActivities(List<ActivityDto> activityDtos){
+		List<Activity> activities = activityDtos.stream().map((activityDto) -> (
 				new Activity()
-				.setId(activityDto.getId())
-				.setExternal_id(activityDto.getExternal_id())
-				.setName(activityDto.getName())
-				.setDistance(activityDto.getDistance())
-				.setMoving_time(activityDto.getMoving_time())
-				.setElapsed_time(activityDto.getElapsed_time())
-				.setTotal_elevation_gain(activityDto.getTotal_elevation_gain())
-				.setElev_high(activityDto.getElev_high())
-				.setElev_low(activityDto.getElev_low())
-				.setStart_date(activityDto.getStart_date())
-				.setStart_date_local(activityDto.getStart_date_local())
-				.setTimezone(activityDto.getTimezone())
-				.setAverage_speed(activityDto.getAverage_speed())
-				.setMax_speed(activityDto.getMax_speed())
-		);
-		return activityDto;
-	}
-
-	@Override
-	public ActivityDto updateActivity(ActivityDto activityDto) {
-		Activity activity = getActivity(activityDto.getId());
-		activityRepository.save(
-				activity
-				.setId(activityDto.getId())
-				.setExternal_id(activityDto.getExternal_id())
-				.setName(activityDto.getName())
-				.setDistance(activityDto.getDistance())
-				.setMoving_time(activityDto.getMoving_time())
-				.setElapsed_time(activityDto.getElapsed_time())
-				.setTotal_elevation_gain(activityDto.getTotal_elevation_gain())
-				.setElev_high(activityDto.getElev_high())
-				.setElev_low(activityDto.getElev_low())
-				.setStart_date(activityDto.getStart_date())
-				.setStart_date_local(activityDto.getStart_date_local())
-				.setTimezone(activityDto.getTimezone())
-				.setAverage_speed(activityDto.getAverage_speed())
-				.setMax_speed(activityDto.getMax_speed())
-		);
-		return activityDto;
+						.setId(activityDto.getId())
+						.setExternal_id(activityDto.getExternal_id())
+						.setName(activityDto.getName())
+						.setDistance(activityDto.getDistance())
+						.setMoving_time(activityDto.getMoving_time())
+						.setElapsed_time(activityDto.getElapsed_time())
+						.setTotal_elevation_gain(activityDto.getTotal_elevation_gain())
+						.setElev_high(activityDto.getElev_high())
+						.setElev_low(activityDto.getElev_low())
+						.setStart_date(activityDto.getStart_date())
+						.setStart_date_local(activityDto.getStart_date_local())
+						.setTimezone(activityDto.getTimezone())
+						.setAverage_speed(activityDto.getAverage_speed())
+						.setMax_speed(activityDto.getMax_speed())
+		)).collect(Collectors.toList());
+		activityRepository.saveAll(activities);
+		return activityDtos;
 	}
 
 	private RuntimeException exception(String message) {
