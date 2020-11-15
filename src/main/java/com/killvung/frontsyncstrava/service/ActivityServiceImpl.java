@@ -55,7 +55,7 @@ public class ActivityServiceImpl implements ActivityService {
 		if(getActivity(activityDto.getId()) != null){
 			return updateActivity(activityDto);
 		}
-		activityRepository.insert(
+		activityRepository.save(
 				new Activity()
 				.setId(activityDto.getId())
 				.setExternal_id(activityDto.getExternal_id())
