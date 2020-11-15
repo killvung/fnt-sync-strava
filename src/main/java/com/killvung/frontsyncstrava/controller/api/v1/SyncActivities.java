@@ -1,6 +1,7 @@
 package com.killvung.frontsyncstrava.controller.api.v1;
 
 import com.killvung.frontsyncstrava.dto.model.ActivityDto;
+import com.killvung.frontsyncstrava.dto.model.response.Response;
 import com.killvung.frontsyncstrava.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,9 @@ public class SyncActivities {
 	}
 
 	@PostMapping("/activities")
-	public void syncActivities(){
+	public Response syncActivities(){
 		List<ActivityDto> activities = activityService.fetchActivities();
+		String message = activities.size() + " activities have been synced";
+		return Response.ok().setPayload(message);
 	}
 }
